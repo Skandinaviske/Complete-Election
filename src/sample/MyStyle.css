@@ -1,0 +1,20 @@
+.visNode{
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 0 4 0 10;
+
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-background-radius:22;
+    -fx-border-radius: 22;
+}
+
+.text-field {
+  -fx-text-box-border: red ;
+  -fx-focus-color: red ;
+}
+
+.validation-error {
+    -fx-background-color: #FFF0F0;
+    -fx-border-color: #DBB1B1;
+}
