@@ -1,10 +1,8 @@
-package mycontrols;
-
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
-import sample.Vertex;
+
 
 public class Arrow extends Group {
 

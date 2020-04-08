@@ -9,7 +9,7 @@
     -fx-border-radius: 22;
 }
 
-.text-field {
+.text-field.error{
   -fx-text-box-border: red ;
   -fx-focus-color: red ;
 }

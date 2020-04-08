@@ -1,8 +1,3 @@
-package sample;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,11 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import mycontrols.Arrow;
 
-import javax.swing.plaf.synth.SynthEditorPaneUI;
-import javax.swing.plaf.synth.SynthStyle;
 import java.util.*;
 
 public class Controller {
@@ -174,39 +165,42 @@ public class Controller {
         Vertex attacker = null;
         Vertex attacked = null;
         Vertex temvertex;
+
         if(getAttacker().length()==0){
-            attackerField.setPromptText("Error: Write ID here");
+            attackerField.setText(Constants.errorText1);
             validateError(attackerField);
             return;
         }
         if(getAttacked().length()==0){
-            attackedField.setText("Error: Write ID here");
+            attackedField.setText(Constants.errorText1);
+            validateError(attackedField);
             return;
         }
         if(getAttacker().length()!=1){
-            attackerField.setText("Error node ID");
+            attackerField.setText(Constants.errorText2);
+            validateError(attackerField);
             return;
         }
         if(getAttacked().length()!=1){
-            attackedField.setText("Error node ID");
+            attackedField.setText(Constants.errorText2);
+            validateError(attackedField);
             return;
         }
         char charAttacker = getAttacker().charAt(0);
         if(!isLowerCase(charAttacker)){
-            attackerField.setText("Error node ID");
+            attackerField.setText(Constants.errorText4);
+            validateError(attackerField);
             return;
         }
 
         char charAttacked = getAttacked().charAt(0);
         if(!isLowerCase(charAttacked)){
-            attackedField.setText("Error node ID");
+            attackedField.setText(Constants.errorText4);
+            validateError(attackedField);
             return;
         }
 
-//        System.out.println("charAttacker="+charAttacker);
-//        System.out.println("charAttacked="+charAttacked);
         Arrow temArrow = map.get(charAttacker*charAttacked);
-//        System.out.println(map.size());
 
         int index0fvertex = 0;
         while(index0fvertex<vertexGroup.size()){
@@ -218,61 +212,59 @@ public class Controller {
             index0fvertex++;
         }
 
-        if(attacker.getState().equals("CANDIDATE"))
+        if(attacker.getState().equals(Constants.candidate))
         {
-            if(attacked.getState().equals("CANDIDATE")){
+            if(attacked.getState().equals(Constants.candidate)){
                 if(attacker.getStage()==attacked.getStage()){
                     if(attacker.getID()<attacked.getID()){
                         attacker.setStage();
-                        attacked.setState("CAPTURED");
+                        attacked.setState(Constants.captured);
                         attacked.setParent(attacker);
 //                        attacker.setChildren(attacked);
                         temArrow.setColor();
                    }else{
-                        attacker.setState("PASSIVE");
+                        attacker.setState(Constants.passive);
                     }
                 }else if(attacker.getStage()>attacked.getStage()){
                     attacker.setStage();
-                    attacked.setState("CAPTURED");
+                    attacked.setState(Constants.captured);
                     attacked.setParent(attacker);
 //                    attacker.setChildren(attacked);
                     temArrow.setColor();
                 }else{
-                    attacker.setState("PASSIVE");
+                    attacker.setState(Constants.passive);
                 }
-            }else if(attacked.getState().equals("PASSIVE")){
+            }else if(attacked.getState().equals(Constants.passive)){
                 attacker.setStage();
                 attacked.setParent(attacker);
 //                attacker.setChildren(attacked);
-                attacked.setState("CAPTURED");
+                attacked.setState(Constants.captured);
                 temArrow.setColor();
-            }else if(attacked.getState().equals("CAPTURED")){
+            }else if(attacked.getState().equals(Constants.captured)){
                 Vertex vertexparent = attacked.gettheParent();
                 if(vertexparent.getStage()<attacker.getStage()){
-                    vertexparent.setState("PASSIVE");
+                    vertexparent.setState(Constants.passive);
                     attacked.setParent(attacker);
                     attacker.setStage();
 //                    vertexparent.removeChildren(attacked);
                     temArrow.setColor();
                 }else if(vertexparent.getStage()==attacker.getStage()){
                     if(attacker.getID()<vertexparent.getID()){
-                        vertexparent.setState("PASSIVE");
+                        vertexparent.setState(Constants.passive);
                         attacked.setParent(attacker);
                         attacker.setStage();
                         temArrow.setColor();
                     }else{
-                        attacker.setState("PASSIVE");
+                        attacker.setState(Constants.passive);
                     }
                 }else{
-                    attacker.setState("PASSIVE");
+                    attacker.setState(Constants.passive);
                 }
             }
         } else{
-            attackerField.setText("ERROR: Not Candidate!");
+            attackerField.setText(Constants.errorText3);
         }
 
-        //attackerFiled.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
-//
         console.setText("attacker = "+attacker.getState()+" stage = "+attacker.getStage() + "\n" +
                 "attacked = "+attacked.getState()+" stage = "+attacked.getStage());
         System.out.println("attacker = "+attacker.getState()+" stage = "+attacker.getStage());
