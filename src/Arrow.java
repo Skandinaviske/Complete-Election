@@ -14,7 +14,7 @@ public class Arrow extends Group {
     Vertex v1;
     Vertex v2;
 
-    public Arrow(Vertex v1, Vertex v2){
+    public Arrow(Vertex v1, Vertex v2) {
 
         this.x1.set(v1.getLayoutX());
         this.y1.set(v1.getLayoutY());
@@ -25,8 +25,8 @@ public class Arrow extends Group {
 
         getChildren().addAll(mainLine);
 
-        for(SimpleDoubleProperty s : new SimpleDoubleProperty[]{this.x1,this.y1,this.x2,this.y2}){
-            s.addListener((l,o,n)->update() );
+        for (SimpleDoubleProperty s : new SimpleDoubleProperty[]{this.x1, this.y1, this.x2, this.y2}) {
+            s.addListener((l, o, n) -> update());
         }
 
         //setColor();visNode
@@ -34,19 +34,19 @@ public class Arrow extends Group {
     }
 
     private void update() {
-        mainLine.getPoints().setAll(x1.get(),y1.get(),x2.get(),y2.get());
+        mainLine.getPoints().setAll(x1.get(), y1.get(), x2.get(), y2.get());
     }
 
-    public void setColor(){
+    public void setColor() {
         this.mainLine.setStroke(Color.BLUE);
     }
 
     //getters and setters
-    public char getV1WeightID(){
+    public char getV1WeightID() {
         return v1.getWeightID();
     }
 
-    public char getV2WeightID(){
+    public char getV2WeightID() {
         return v2.getWeightID();
     }
 

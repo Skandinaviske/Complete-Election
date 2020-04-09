@@ -8,22 +8,30 @@ public class Vertex extends Button {
     private Vertex parent = null;
     private ArrayList<Vertex> children = null;
     private static char ch = 'a';
-    private static  int count = 0;
+    private static int count = 0;
     public int stage = 1;
     public int ID;
     public char weightID;
     private String state = "CANDIDATE";
+    private ArrayList<Integer> vertexNumberList = new ArrayList<Integer>();
 
-    public  Vertex(Double x, Double y){
+    public Vertex(Double x, Double y, ArrayList<Integer> list) {
         setLayoutX(x);
         setLayoutY(y);
+
+        this.vertexNumberList = list;
 
         translateXProperty().bind(widthProperty().divide(-2));
         translateYProperty().bind(heightProperty().divide(-2));
 
-        weightID =(char) ch++;
-        ID = randInt(0,10);
-        setText(weightID+":"+ID+"");
+        weightID = (char) ch++;
+        ID = randInt(0, 10);
+        if(vertexNumberList.contains(ID)){
+            while(vertexNumberList.contains(ID))
+            ID = randInt(0, 10);
+        }
+        vertexNumberList.add(ID);
+        setText(weightID + ":" + ID + "");
         getStyleClass().add("visNode");
     }
 
@@ -34,11 +42,11 @@ public class Vertex extends Button {
         return randomNum;
     }
 
-    public int getID(){
+    public int getID() {
         return this.ID;
     }
 
-    public void setParent(Vertex vertex){
+    public void setParent(Vertex vertex) {
         this.parent = vertex;
     }
 
@@ -50,7 +58,7 @@ public class Vertex extends Button {
 //        this.children.remove(vertex);
 //    }
 
-    public Vertex gettheParent(){
+    public Vertex gettheParent() {
         return this.parent;
     }
 
@@ -58,24 +66,28 @@ public class Vertex extends Button {
 //        return this.children;
 //    }
 
-    public char getWeightID(){
+    public char getWeightID() {
         return this.weightID;
     }
 
 
-    public void setState(String newState){
+    public void setState(String newState) {
         this.state = newState;
     }
 
-    public String getState(){
+    public String getState() {
         return this.state;
     }
 
-    public int getStage(){
+    public int getStage() {
         return this.stage;
     }
 
-    public void setStage(){
+    public void setStage() {
         this.stage++;
+    }
+
+    public ArrayList<Integer> getNumberList(){
+        return this.vertexNumberList;
     }
 }
