@@ -1,5 +1,4 @@
 <?import javafx.scene.layout.BorderPane?>
-
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
@@ -11,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <BorderPane fx:controller="Controller"
             xmlns:fx="http://javafx.com/fxml"
-            stylesheets="@MyStyle.css">
+            stylesheets="@../css/MyStyle.css">
     <top>
         <VBox>
             <HBox>
@@ -30,10 +29,8 @@
                     </text>
                 </Label>
                 <TextField fx:id="attackerField" promptText="Please add a char here, like a,b,c,etc." prefWidth="150"
-                           stylesheets="@MyStyle.css">
-                    <!--                <text>-->
-                    <!--                    (Please add a char here, like a,b,c,etc.)-->
-                    <!--                </text>-->
+                           stylesheets="@../css/MyStyle.css">
+
                 </TextField>
 
                 <Label>

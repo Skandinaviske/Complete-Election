@@ -1,5 +1,5 @@
+//Constant class
 public class Constants {
-
 
     public static final String errorText1 = "Error: Write ID here!";
     public static final String errorText2 = "Error node ID!";
@@ -8,6 +8,5 @@ public class Constants {
     public static final String candidate = "CANDIDATE";
     public static final String passive = "PASSIVE";
     public static final String captured = "CAPTURED";
-
 
 }

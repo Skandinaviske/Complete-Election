@@ -3,38 +3,43 @@ import javafx.scene.control.Button;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Vertex extends Button {
+// node class
 
-    private Vertex parent = null;
-    private ArrayList<Vertex> children = null;
+public class Node extends Button {
+
+    private Node parent = null;
+    private ArrayList<Node> children = null;
     private static char ch = 'a';
     private static int count = 0;
     public int stage = 1;
     public int ID;
     public char weightID;
     private String state = "CANDIDATE";
-    private ArrayList<Integer> vertexNumberList = new ArrayList<Integer>();
+    private ArrayList<Integer> nodeNumberList = new ArrayList<Integer>();
 
-    public Vertex(Double x, Double y, ArrayList<Integer> list) {
+    public Node(Double x, Double y, ArrayList<Integer> list) {
         setLayoutX(x);
         setLayoutY(y);
 
-        this.vertexNumberList = list;
+        this.nodeNumberList = list;
 
         translateXProperty().bind(widthProperty().divide(-2));
         translateYProperty().bind(heightProperty().divide(-2));
 
         weightID = (char) ch++;
         ID = randInt(0, 10);
-        if(vertexNumberList.contains(ID)){
-            while(vertexNumberList.contains(ID))
-            ID = randInt(0, 10);
+
+        //Determine whether the random number is repeated
+        if (nodeNumberList.contains(ID)) {
+            while (nodeNumberList.contains(ID))
+                ID = randInt(0, 10);
         }
-        vertexNumberList.add(ID);
+        nodeNumberList.add(ID);
         setText(weightID + ":" + ID + "");
         getStyleClass().add("visNode");
     }
 
+    //Generate a random number
     public static int randInt(int min, int max) {
         Random rand = new Random();
         int randomNum = rand.nextInt((max - min) + 1) + min;
@@ -42,35 +47,38 @@ public class Vertex extends Button {
         return randomNum;
     }
 
+    //get the number in the node
     public int getID() {
         return this.ID;
     }
 
-    public void setParent(Vertex vertex) {
-        this.parent = vertex;
+    //Set parent node
+    public void setParent(Node node) {
+        this.parent = node;
     }
 
-//    public void setChildren(Vertex vertex){
-//        this.children.add(vertex);
+//    public void setChildren(Node node){
+//        this.children.add(node);
 //    }
 //
-//    public void removeChildren(Vertex vertex){
-//        this.children.remove(vertex);
+//    public void removeChildren(Node node){
+//        this.children.remove(node);
 //    }
 
-    public Vertex gettheParent() {
+    public Node gettheParent() {
         return this.parent;
     }
 
-//    public ArrayList<Vertex> gettheChildren(){
+//    public ArrayList<Node> gettheChildren(){
 //        return this.children;
 //    }
 
+    //get the character of the node
     public char getWeightID() {
         return this.weightID;
     }
 
-
+    //set and get the state of the node now
     public void setState(String newState) {
         this.state = newState;
     }
@@ -79,6 +87,7 @@ public class Vertex extends Button {
         return this.state;
     }
 
+    //set and get the stage of the node now
     public int getStage() {
         return this.stage;
     }
@@ -87,7 +96,7 @@ public class Vertex extends Button {
         this.stage++;
     }
 
-    public ArrayList<Integer> getNumberList(){
-        return this.vertexNumberList;
+    public ArrayList<Integer> getNumberList() {
+        return this.nodeNumberList;
     }
 }

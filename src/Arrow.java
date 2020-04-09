@@ -3,6 +3,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 
+//Line class
 
 public class Arrow extends Group {
 
@@ -11,10 +12,10 @@ public class Arrow extends Group {
     private SimpleDoubleProperty y1 = new SimpleDoubleProperty();
     private SimpleDoubleProperty x2 = new SimpleDoubleProperty();
     private SimpleDoubleProperty y2 = new SimpleDoubleProperty();
-    Vertex v1;
-    Vertex v2;
+    Node v1;
+    Node v2;
 
-    public Arrow(Vertex v1, Vertex v2) {
+    public Arrow(Node v1, Node v2) {
 
         this.x1.set(v1.getLayoutX());
         this.y1.set(v1.getLayoutY());
@@ -37,6 +38,7 @@ public class Arrow extends Group {
         mainLine.getPoints().setAll(x1.get(), y1.get(), x2.get(), y2.get());
     }
 
+    //Set blue color
     public void setColor() {
         this.mainLine.setStroke(Color.BLUE);
     }

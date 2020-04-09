@@ -10,6 +10,7 @@ import java.util.*;
 
 public class Controller {
 
+    //bind weight
     ArrayList<Integer> list = new ArrayList<Integer>();
     @FXML
     AnchorPane graph;
@@ -22,127 +23,127 @@ public class Controller {
     @FXML
     TextArea console;
 
-    Vertex vertex1;
-    Vertex vertex2;
-    //Vertex vertexTemp;
-    Vertex vertexDelete;
+    Node node1;
+    Node node2;
+    Node nodeDelete;
 
     int totalSucceedAttack = 0;
 
     Arrow arrow;
-    ArrayList<Vertex> vertexGroup = new ArrayList<Vertex>();
+    ArrayList<Node> nodeGroup = new ArrayList<Node>();
 
     Map<Integer, Arrow> map = new HashMap<Integer, Arrow>();
 
-    public void addinVertexGroup(Vertex vertex) {
-        vertexGroup.add(vertex);
+    //record nodes
+    public void addinNodeGroup(Node node) {
+        nodeGroup.add(node);
     }
 
     //graph events
     public void onGraphPressed(MouseEvent mouseEvent) {
         if (mouseEvent.isPrimaryButtonDown()) {
-            vertex1 = createAndAddVertex(mouseEvent.getX(), mouseEvent.getY());
+            node1 = createAndAddNode(mouseEvent.getX(), mouseEvent.getY());
         }
     }
 
     public void onGraphDragDetected(MouseEvent mouseEvent) {
         if (mouseEvent.isPrimaryButtonDown()) {
-            vertex2 = createAndAddVertex(mouseEvent.getX(), mouseEvent.getY());
+            node2 = createAndAddNode(mouseEvent.getX(), mouseEvent.getY());
 
-            arrow = createAndArrow(vertex1, vertex2);
+            arrow = createAndArrow(node1, node2);
         }
     }
 
     public void onGraphDragged(MouseEvent mouseEvent) {
-        if (vertex2 != null) {
-            vertex2.setLayoutX(mouseEvent.getX());
-            vertex2.setLayoutY(mouseEvent.getY());
+        if (node2 != null) {
+            node2.setLayoutX(mouseEvent.getX());
+            node2.setLayoutY(mouseEvent.getY());
         }
     }
 
     public void onGraphReleased(MouseEvent mouseEvent) {
 
-        vertex2 = null;
+        node2 = null;
 
     }
 
-    //vertex events
-    private void onVertexPressed(MouseEvent mouseEvent, Vertex vertex) {
+    //Node events
+    private void onNodePressed(MouseEvent mouseEvent, Node node) {
         if (mouseEvent.isPrimaryButtonDown()) {
-            vertex1 = vertex;
+            node1 = node;
         } else if (mouseEvent.isSecondaryButtonDown()) {
-            vertexDelete = vertex;
+            nodeDelete = node;
         }
     }
 
-    private void onVertexDragDetected(MouseEvent mouseEvent, Button vertex) {
-        vertex.toFront();
-        vertexDelete = null;
+    private void onNodeDragDetected(MouseEvent mouseEvent, Button node) {
+        node.toFront();
+        nodeDelete = null;
         if (mouseEvent.isPrimaryButtonDown()) {
-            vertex2 = createAndAddVertex(
-                    vertex.getLayoutX() + mouseEvent.getX() + vertex.getTranslateX(),
-                    vertex.getLayoutY() + mouseEvent.getY() + vertex.getTranslateY());
-            arrow = createAndArrow(vertex1, vertex2);
+            node2 = createAndAddNode(
+                    node.getLayoutX() + mouseEvent.getX() + node.getTranslateX(),
+                    node.getLayoutY() + mouseEvent.getY() + node.getTranslateY());
+            arrow = createAndArrow(node1, node2);
         } else if (mouseEvent.isSecondaryButtonDown()) {
-            vertexDelete = null;
+            nodeDelete = null;
         }
     }
 
-    private void onVertexDragged(MouseEvent mouseEvent, Button vertex) {
-        if (vertex2 != null) {
-            vertex2.setLayoutX(vertex.getLayoutX() + mouseEvent.getX() + vertex.getTranslateX());
-            vertex2.setLayoutY(vertex.getLayoutY() + mouseEvent.getY() + vertex.getTranslateY());
+    private void onNodeDragged(MouseEvent mouseEvent, Button node) {
+        if (node2 != null) {
+            node2.setLayoutX(node.getLayoutX() + mouseEvent.getX() + node.getTranslateX());
+            node2.setLayoutY(node.getLayoutY() + mouseEvent.getY() + node.getTranslateY());
         }
         if (mouseEvent.isSecondaryButtonDown()) {
-            vertex.setLayoutX(vertex.getLayoutX() + mouseEvent.getX() + vertex.getTranslateX());
-            vertex.setLayoutY(vertex.getLayoutY() + mouseEvent.getY() + vertex.getTranslateY());
+            node.setLayoutX(node.getLayoutX() + mouseEvent.getX() + node.getTranslateX());
+            node.setLayoutY(node.getLayoutY() + mouseEvent.getY() + node.getTranslateY());
         }
     }
 
-    private void onVertexReleased(MouseEvent mouseEvent, Vertex vertex) {
-        if (vertexDelete != null) {
-            graph.getChildren().remove(vertexDelete);
+    private void onNodeReleased(MouseEvent mouseEvent, Node node) {
+        if (nodeDelete != null) {
+            graph.getChildren().remove(nodeDelete);
         }
 
-        vertex2 = null;
-        vertexDelete = null;
+        node2 = null;
+        nodeDelete = null;
     }
 
     //helper events
-    private Vertex createAndAddVertex(Double x, Double y) {
-        Vertex vertex = new Vertex(x, y, list);
-        list = vertex.getNumberList();
+    private Node createAndAddNode(Double x, Double y) {
+        Node node = new Node(x, y, list);
+        list = node.getNumberList();
         int listindex = 0;
-        while(listindex<list.size()){
-            System.out.print(list.get(listindex)+" ");
+        while (listindex < list.size()) {
+            System.out.print(list.get(listindex) + " ");
             listindex++;
         }
-        vertex.setOnMousePressed(mouseEvent -> onVertexPressed(mouseEvent, vertex));
-        vertex.setOnDragDetected(mouseEvent -> onVertexDragDetected(mouseEvent, vertex));
-        vertex.setOnMouseDragged(mouseEvent -> onVertexDragged(mouseEvent, vertex));
-        vertex.setOnMouseReleased(mouseEvent -> onVertexReleased(mouseEvent, vertex));
+        node.setOnMousePressed(mouseEvent -> onNodePressed(mouseEvent, node));
+        node.setOnDragDetected(mouseEvent -> onNodeDragDetected(mouseEvent, node));
+        node.setOnMouseDragged(mouseEvent -> onNodeDragged(mouseEvent, node));
+        node.setOnMouseReleased(mouseEvent -> onNodeReleased(mouseEvent, node));
 
-        addinVertexGroup(vertex);
+        addinNodeGroup(node);
         int i = 0;
-        if (vertexGroup.size() != 1) {
-            while (i < vertexGroup.size()) {
-                Vertex temVertex = vertexGroup.get(i);
-                if (temVertex.getWeightID() != vertex.getWeightID()) {
-                    Arrow temArrow = createAndArrow(temVertex, vertex);
-                    //Key key = new Key(temVertex.getWeightID(),vertex.getWeightID());
-                    int num1 = temVertex.getWeightID();
-                    int num2 = vertex.getWeightID();
+        if (nodeGroup.size() != 1) {
+            while (i < nodeGroup.size()) {
+                Node temNode = nodeGroup.get(i);
+                if (temNode.getWeightID() != node.getWeightID()) {
+                    Arrow temArrow = createAndArrow(temNode, node);
+                    int num1 = temNode.getWeightID();
+                    int num2 = node.getWeightID();
                     map.put(num1 * num2, temArrow);
 
                 }
                 i++;
             }
         }
-        graph.getChildren().add(vertex);
-        return vertex;
+        graph.getChildren().add(node);
+        return node;
     }
 
-    private Arrow createAndArrow(Vertex v1, Vertex v2) {
+    //Create line
+    private Arrow createAndArrow(Node v1, Node v2) {
 
         Arrow arrow = new Arrow(v1, v2);
 
@@ -167,12 +168,13 @@ public class Controller {
         return c >= 97 && c <= 122;
     }
 
+    //Submit action
     public void handleSubmitButtonAction(ActionEvent actionEvent) {
-        Vertex attacker = null;
-        Vertex attacked = null;
-        Vertex temvertex;
+        Node attacker = null;
+        Node attacked = null;
+        Node temnode;
         boolean winFlag = false;
-        char vertexWinner = 'A';
+        char nodeWinner = 'A';
         char charAttacker = getAttacker().charAt(0);
         char charAttacked = getAttacked().charAt(0);
 
@@ -182,14 +184,14 @@ public class Controller {
 
         Arrow temArrow = map.get(charAttacker * charAttacked);
 
-        int index0fvertex = 0;
-        while (index0fvertex < vertexGroup.size()) {
-            temvertex = vertexGroup.get(index0fvertex);
-            if (temvertex.getWeightID() == charAttacker)
-                attacker = temvertex;
-            if (temvertex.getWeightID() == charAttacked)
-                attacked = temvertex;
-            index0fvertex++;
+        int indexofNode = 0;
+        while (indexofNode < nodeGroup.size()) {
+            temnode = nodeGroup.get(indexofNode);
+            if (temnode.getWeightID() == charAttacker)
+                attacker = temnode;
+            if (temnode.getWeightID() == charAttacked)
+                attacked = temnode;
+            indexofNode++;
         }
 
         if (attacker.getState().equals(Constants.candidate)) {
@@ -203,7 +205,7 @@ public class Controller {
                         temArrow.setColor();
                         totalSucceedAttack++;
                         if (isWin()) {
-                            vertexWinner = attacker.getWeightID();
+                            nodeWinner = attacker.getWeightID();
                         }
                     } else {
                         attacker.setState(Constants.passive);
@@ -216,7 +218,7 @@ public class Controller {
                     temArrow.setColor();
                     totalSucceedAttack++;
                     if (isWin()) {
-                        vertexWinner = attacker.getWeightID();
+                        nodeWinner = attacker.getWeightID();
                     }
                 } else {
                     attacker.setState(Constants.passive);
@@ -229,29 +231,29 @@ public class Controller {
                 temArrow.setColor();
                 totalSucceedAttack++;
                 if (isWin()) {
-                    vertexWinner = attacker.getWeightID();
+                    nodeWinner = attacker.getWeightID();
                 }
             } else if (attacked.getState().equals(Constants.captured)) {
-                Vertex vertexparent = attacked.gettheParent();
-                if (vertexparent.getStage() < attacker.getStage()) {
-                    vertexparent.setState(Constants.passive);
+                Node nodeparent = attacked.gettheParent();
+                if (nodeparent.getStage() < attacker.getStage()) {
+                    nodeparent.setState(Constants.passive);
                     attacked.setParent(attacker);
                     attacker.setStage();
-//                    vertexparent.removeChildren(attacked);
+//                    nodeparent.removeChildren(attacked);
                     temArrow.setColor();
                     totalSucceedAttack++;
                     if (isWin()) {
-                        vertexWinner = attacker.getWeightID();
+                        nodeWinner = attacker.getWeightID();
                     }
-                } else if (vertexparent.getStage() == attacker.getStage()) {
-                    if (attacker.getID() < vertexparent.getID()) {
-                        vertexparent.setState(Constants.passive);
+                } else if (nodeparent.getStage() == attacker.getStage()) {
+                    if (attacker.getID() < nodeparent.getID()) {
+                        nodeparent.setState(Constants.passive);
                         attacked.setParent(attacker);
                         attacker.setStage();
                         temArrow.setColor();
                         totalSucceedAttack++;
                         if (isWin()) {
-                            vertexWinner = attacker.getWeightID();
+                            nodeWinner = attacker.getWeightID();
                         }
                     } else {
                         attacker.setState(Constants.passive);
@@ -267,7 +269,7 @@ public class Controller {
             System.out.println("Winn");
             console.setText("attacker = " + attacker.getState() + " stage = " + attacker.getStage() + "\n" +
                     "attacked = " + attacked.getState() + " stage = " + attacked.getStage() + "\n" +
-                    "End and winner is ———— " + vertexWinner);
+                    "End and winner is ———— " + nodeWinner);
 
         } else {
             console.setText("attacker = " + attacker.getState() + " stage = " + attacker.getStage() + "\n" +
@@ -275,9 +277,9 @@ public class Controller {
         }
         removeError(attackerField);
         removeError(attackedField);
-        System.out.println("totalSucceedAttack = " + totalSucceedAttack);
     }
 
+    // validate error input
     private boolean validate() {
         if (getAttacker().length() == 0) {
             attackerField.setText(Constants.errorText1);
@@ -323,10 +325,10 @@ public class Controller {
         textField.getStyleClass().remove("error");
     }
 
+    //judge is win or not
     private boolean isWin() {
-        System.out.println("vertexGroup = " + vertexGroup.size());
-        if (totalSucceedAttack == vertexGroup.size() - 1) {
-            //vertex.getWeightID();
+        if (totalSucceedAttack == nodeGroup.size() - 1) {
+
             return true;
         }
         return false;
