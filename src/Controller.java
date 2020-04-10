@@ -210,6 +210,7 @@ public class Controller {
                         }
                     } else {
                         attacker.setState(Constants.passive);
+                        attacker.setStage(0);
                     }
                 } else if (attacker.getStage() > attacked.getStage()) {
                     attacker.setStage();
@@ -223,6 +224,7 @@ public class Controller {
                     }
                 } else {
                     attacker.setState(Constants.passive);
+                    attacker.setStage(0);
                 }
             } else if (attacked.getState().equals(Constants.passive)) {
                 attacker.setStage();
@@ -258,23 +260,40 @@ public class Controller {
                         }
                     } else {
                         attacker.setState(Constants.passive);
+                        attacker.setStage(0);
                     }
                 } else {
                     attacker.setState(Constants.passive);
+                    attacker.setStage(0);
                 }
             }
         } else {
             attackerField.setText(Constants.errorText3);
         }
-        if (isWin()) {
-            System.out.println("Winn");
-            console.setText("attacker = " + attacker.getState() + " stage = " + attacker.getStage() + "\n" +
-                    "attacked = " + attacked.getState() + " stage = " + attacked.getStage() + "\n" +
-                    "End and winner is ———— " + nodeWinner);
 
-        } else {
+        if (isWin()) {
+            if(attacker.getState().equals(Constants.candidate)&&!attacked.getState().equals(Constants.candidate))
             console.setText("attacker = " + attacker.getState() + " stage = " + attacker.getStage() + "\n" +
-                    "attacked = " + attacked.getState() + " stage = " + attacked.getStage());
+                    "attacked = " + attacked.getState() +  "\n" +
+                    "End and winner is ———— " + nodeWinner);
+            else if(!attacker.getState().equals(Constants.candidate)&&attacked.getState().equals(Constants.candidate))
+                console.setText("attacker = " + attacker.getState()  + "\n" +
+                        "attacked = " + attacked.getState() + " stage = " + attacked.getStage() + "\n" +
+                        "End and winner is ———— " + nodeWinner);
+            else
+                console.setText("attacker = " + attacker.getState()  + "\n" +
+                        "attacked = " + attacked.getState() + "\n" +
+                        "End and winner is ———— " + nodeWinner);
+        } else {
+            if(attacker.getState().equals(Constants.candidate)&&!attacked.getState().equals(Constants.candidate))
+                console.setText("attacker = " + attacker.getState() + " stage = " + attacker.getStage() + "\n" +
+                    "attacked = " + attacked.getState());
+            else if(!attacker.getState().equals(Constants.candidate)&&attacked.getState().equals(Constants.candidate))
+                console.setText("attacker = " + attacker.getState() + "\n" +
+                        "attacked = " + attacked.getState() + " stage = " + attacked.getStage());
+            else
+                console.setText("attacker = " + attacker.getState() + "\n" +
+                        "attacked = " + attacked.getState());
         }
         removeError(attackerField);
         removeError(attackedField);
@@ -351,5 +370,9 @@ public class Controller {
         map.clear();
         list.clear();
         Node.ch ='a';
+        attackerField.setText("");
+        attackedField.setText("");
+        console.setText("Output is here! (At most eleven nodes)");
+        totalSucceedAttack = 0;
     }
 }

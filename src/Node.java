@@ -96,6 +96,10 @@ public class Node extends Button {
         this.stage++;
     }
 
+    public void setStage(int stage) {
+        this.stage = stage;
+    }
+
     public ArrayList<Integer> getNumberList() {
         return this.nodeNumberList;
     }

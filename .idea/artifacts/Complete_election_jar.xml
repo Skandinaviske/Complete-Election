@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Complete election:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Complete_election_jar</output-path>
+    <root id="archive" name="Complete election.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resource/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="module-output" name="Complete election" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx-swt.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.base.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.controls.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.fxml.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.graphics.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.media.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.swing.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/RT/openjfx-15-ea+2_windows-x64_bin-sdk/javafx-sdk-15/lib/javafx.web.jar" path-in-jar="/" />
+      <element id="library" level="application" name="javafx-15" />
+    </root>
+  </artifact>
+</component>
