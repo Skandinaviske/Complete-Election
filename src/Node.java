@@ -9,7 +9,7 @@ public class Node extends Button {
 
     private Node parent = null;
     private ArrayList<Node> children = null;
-    private static char ch = 'a';
+    public static char ch = 'a';
     private static int count = 0;
     public int stage = 1;
     public int ID;

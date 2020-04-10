@@ -11,7 +11,7 @@ import java.util.*;
 public class Controller {
 
     //bind weight
-    ArrayList<Integer> list = new ArrayList<Integer>();
+
     @FXML
     AnchorPane graph;
     @FXML
@@ -20,6 +20,8 @@ public class Controller {
     TextField attackedField;
     @FXML
     Button submit;
+    @FXML
+    Button reset;
     @FXML
     TextArea console;
 
@@ -31,7 +33,7 @@ public class Controller {
 
     Arrow arrow;
     ArrayList<Node> nodeGroup = new ArrayList<Node>();
-
+    ArrayList<Integer> list = new ArrayList<Integer>();
     Map<Integer, Arrow> map = new HashMap<Integer, Arrow>();
 
     //record nodes
@@ -133,7 +135,6 @@ public class Controller {
                     int num1 = temNode.getWeightID();
                     int num2 = node.getWeightID();
                     map.put(num1 * num2, temArrow);
-
                 }
                 i++;
             }
@@ -334,4 +335,21 @@ public class Controller {
         return false;
     }
 
+    //Reset action
+    public void handleResetButtonAction(ActionEvent actionEvent) {
+        int i = 0;
+        while(i<nodeGroup.size()){
+            graph.getChildren().remove(nodeGroup.get(i));
+            i++;
+        }
+        Collection<Arrow> values = map.values();
+        Iterator<Arrow> it=values.iterator();
+        while(it.hasNext()) {
+            graph.getChildren().remove(it.next());
+        }
+        nodeGroup.clear();
+        map.clear();
+        list.clear();
+        Node.ch ='a';
+    }
 }

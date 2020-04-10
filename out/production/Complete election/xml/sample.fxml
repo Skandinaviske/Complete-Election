@@ -53,6 +53,9 @@
                 </Label>
                 <Button fx:id="submit" text="Submit"
                         onAction="#handleSubmitButtonAction"/>
+
+                <Button fx:id="reset" text="Reset"
+                        onAction="#handleResetButtonAction"/>
             </HBox>
             <HBox>
                 <padding>
