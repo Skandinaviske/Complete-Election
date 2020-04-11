@@ -1,0 +1,1 @@
+java --module-path .//javafx-sdk-15\lib --add-modules=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web -jar Complete_election.jar

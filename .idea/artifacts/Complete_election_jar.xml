@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Complete election:jar">
+  <artifact type="jar" name="Complete election:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Complete_election_jar</output-path>
     <root id="archive" name="Complete election.jar">
       <element id="directory" name="META-INF">
